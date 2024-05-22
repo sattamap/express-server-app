@@ -176,6 +176,7 @@ Develop an Express application using TypeScript, integrated with MongoDB via Mon
 
 ## Project Structure
 
+```bash
 src/
 ├── app/
 │ ├── modules/
@@ -195,3 +196,4 @@ src/
 │ │ ├── validation.ts
 ├── app.ts
 ├── server.ts
+```
