@@ -1,14 +1,14 @@
-import { Request, Response } from 'express';
 
 import { ZodError } from 'zod';
 import { productSchema } from '../../validation/validation';
 import { ProductServices } from './product.service';
+import { Request, Response } from 'express';
 
 
 const createProduct = async (req: Request, res: Response) => {
     try {
       // Validate request body
-      const productData = productSchema.parse(req.body.product);
+      const productData = productSchema.parse(req.body);
   
       const result = await ProductServices.createProductIntoDB(productData);
   
@@ -36,6 +36,50 @@ const createProduct = async (req: Request, res: Response) => {
   };
 
 
+
+
+  const getProducts = async (req: Request, res: Response) => {
+    try {
+      const searchTerm = req.query.searchTerm as string;
+      let products;
+  
+      if (searchTerm) {
+        // Search products based on the searchTerm
+        products = await ProductServices.retrieveProducts(searchTerm);
+        if (products.length === 0) {
+          res.status(404).json({
+            success: false,
+            message: `No products found matching search term '${searchTerm}'`,
+          });
+        } else {
+          res.status(200).json({
+            success: true,
+            message: `Products matching search term '${searchTerm}' fetched successfully!`,
+            data: products,
+          });
+        }
+      } else {
+        // Get all products if no searchTerm provided
+        products = await ProductServices.retrieveProducts();
+        res.status(200).json({
+          success: true,
+          message: 'Products fetched successfully!',
+          data: products,
+        });
+      }
+    } catch (err) {
+      console.error(err);
+      res.status(500).json({
+        success: false,
+        message: 'Error retrieving products',
+        //error: err.message,
+      });
+    }
+  };
+  
+
+
   export const ProductControllers = {
     createProduct,
+    getProducts,
   };
