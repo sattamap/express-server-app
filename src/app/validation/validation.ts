@@ -1,4 +1,4 @@
-import { z } from 'zod';
+import { z } from "zod";
 
 export const variantSchema = z.object({
   type: z.string(),
@@ -20,12 +20,9 @@ export const productSchema = z.object({
   inventory: inventorySchema,
 });
 
-
 export const orderSchema = z.object({
-    email: z.string().email(),
-    productId: z.string(),
-    price: z.number().nonnegative(),
-    quantity: z.number().int().positive(),
-  });
-  
-
+  email: z.string().email(),
+  productId: z.string(),
+  price: z.number().nonnegative(),
+  quantity: z.number().int().positive(),
+});
