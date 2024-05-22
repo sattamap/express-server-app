@@ -28,6 +28,12 @@ const getProductByIdFromDB = async (productId: string) => {
     const product = await ProductModel.findById(productId);
     return product;
   };
+
+
+  const updateProductInDB = async (productId: string, updateData: Partial<Product>) => {
+    const updatedProduct = await ProductModel.findByIdAndUpdate(productId, updateData, { new: true });
+    return updatedProduct;
+  };
   
 
 
@@ -35,5 +41,6 @@ const getProductByIdFromDB = async (productId: string) => {
     createProductIntoDB,
     retrieveProducts,
     getProductByIdFromDB,
+    updateProductInDB
 
   };
