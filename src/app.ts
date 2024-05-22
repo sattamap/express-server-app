@@ -15,7 +15,7 @@ app.use("/api", OrderRoutes);
 
 // Welcome route
 app.get("/", (req: Request, res: Response) => {
-  res.send("Welcome to express app!");
+  res.send("express-server-app is running!");
 });
 
 // Catch-all middleware for handling 404 errors (Route not found)
